@@ -755,7 +755,7 @@ body,
   width: 100vw;
   height: 100vh;
   background-color: #006eb4;
-  /* background-image: url(../svg/rose.svg); */
+  background-image: url(../svg/rose.svg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

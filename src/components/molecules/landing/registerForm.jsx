@@ -55,7 +55,7 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <main className="showcase-body">
+      <main className="showcase-body" data-test="showcase-body">
         <div className="showcase-body-left">
           <h1 className="showcase-title">
             Sign Up / Register

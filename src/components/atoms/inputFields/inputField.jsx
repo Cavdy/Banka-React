@@ -10,9 +10,9 @@ class inputField extends Component {
     let { inputs, value } = this.props;
     const inputForms = inputs.map((input) => {
       return (
-        <div className="form-group" key={input.id}>
+        <div className="form-group" key={input.id} data-test="inputFieldGroup">
           <label className="form-label">{input.label}</label>
-          <input type={input.type} placeholder={input.placeholder} id={input.formId} name={input.name} value={value} className={input.className} onChange={this.onChange} />
+          <input type={input.type} placeholder={input.placeholder} id={input.formId} name={input.name} value={value} className={input.className} onChange={this.onChange} data-test={input.name} />
           {input.error && (<p className={classnames('erroremail', {
             'erroremail-hide': input.error
           })}>{input.error}</p>)}
@@ -28,7 +28,16 @@ class inputField extends Component {
 }
 
 inputField.propTypes = {
-  inputs: PropTypes.array.isRequired,
+  inputs: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    name: PropTypes.string,
+    formId: PropTypes.string,
+    className: PropTypes.string,
+    error: PropTypes.string,
+  })),
   value: PropTypes.string,
   handleChange: PropTypes.func.isRequired
 };

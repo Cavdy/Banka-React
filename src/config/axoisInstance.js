@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5100/api/v1'
+  baseURL: 'https://bankaapp-api.herokuapp.com/api/v1'
 });
 
 export default instance;
