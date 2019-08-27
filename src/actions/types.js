@@ -1,1 +1,5 @@
 export const GET_ERRORS = 'GET_ERRORS';
+export const SEND_VERIFY_TOKEN = 'SEND_VERIFY_TOKEN';
+export const CURRENT_USER = 'CURRENT_USER';
+export const NOT_VALIDATED = 'NOT_VALIDATED';
+export const VALIDATED = 'VALIDATED';

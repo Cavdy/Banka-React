@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const index = () => {
+const button = ({value}) => {
   return (
-    <input type="submit" id="submit" className="btn btn-block btn-primary" value="Register" />
+    <input type="submit" id="submit" className="btn btn-block btn-primary" value={value} />
   )
 }
 
-export default index;
+button.propTypes = {
+  value: PropTypes.string.isRequired,
+}
+
+export default button;

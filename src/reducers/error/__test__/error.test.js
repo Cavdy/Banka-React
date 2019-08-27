@@ -1,5 +1,5 @@
-import errorReducer from './errorReducer';
-import { GET_ERRORS, GET_ERROR } from '../../actions/types';
+import errorReducer from '../errorReducer';
+import { GET_ERRORS, GET_ERROR } from '../../../actions/types';
 
 describe('Error Reducer', () => {
 
@@ -15,7 +15,10 @@ describe('Error Reducer', () => {
       type: GET_ERROR,
       payload: user
     });
-    expect(err).toEqual({})
+    expect(err).toEqual({
+      errors: '',
+      isLoading: true
+    })
   });
 
 
@@ -24,9 +27,9 @@ describe('Error Reducer', () => {
       type: GET_ERRORS,
       payload: user
     });
-    expect(err).toHaveProperty('firstName', '');
-    expect(err).toHaveProperty('lastName', '');
-    expect(err).toHaveProperty('email', '');
-    expect(err).toHaveProperty('password', '');
+    expect(err.errors).toHaveProperty('firstName', '');
+    expect(err.errors).toHaveProperty('lastName', '');
+    expect(err.errors).toHaveProperty('email', '');
+    expect(err.errors).toHaveProperty('password', '');
   })
 });

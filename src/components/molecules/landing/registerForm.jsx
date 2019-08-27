@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import InputField from '../../atoms/inputFields/inputField.jsx';
 import Button from '../../atoms/buttons/index.jsx';
 import { registerUser } from '../../../actions/authActions';
+import Loading from '../loading/index.jsx';
+import Notify from '../../atoms/notification/index.jsx';
 
 class RegisterForm extends Component {
   constructor() {
@@ -15,33 +17,60 @@ class RegisterForm extends Component {
         { id: 3, label: 'Email', type: 'text', placeholder: 'Email', formId: 'email', name: 'email', className: 'form-input', error: '' },
         { id: 4, label: 'Password', type: 'password', placeholder: 'Password', formId: 'password', name: 'password', className: 'form-input', error: '' }
       ],
+      isLoading: false,
+      tokenSent: ''
     }
   }
   
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      const {firstname,lastname,email,password} = nextProps.errors
-      this.setState({
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { errors } = nextProps.errors;
+    return errors !== '' ? errors : null;
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevTokenState = prevProps.auth.tokenSent;
+    const prevErrors = prevProps.errors.errors;
+    const { errors } = this.props.errors;
+    const { firstname, lastname, email, password } = errors;
+    const { tokenSent } = this.props.auth;
+    let responseState = '';
+    
+    if (prevErrors !== errors) {
+      responseState = {
         inputState: [
           { id: 1, label: 'First Name', type: 'text', placeholder: 'First Name', formId: 'firstname', name: 'firstName', className: 'form-input', error: firstname },
           { id: 2, label: 'Last Name', type: 'text', placeholder: 'Last Name', formId: 'lastname', name: 'lastName', className: 'form-input', error: lastname },
           { id: 3, label: 'Email', type: 'text', placeholder: 'Email', formId: 'email', name: 'email', className: 'form-input', error: email },
           { id: 4, label: 'Password', type: 'password', placeholder: 'Password', formId: 'password', name: 'password', className: 'form-input', error: password }
         ],
-      })
+        isLoading: false,
+      }
+    } else if (prevTokenState !== tokenSent) {
+      responseState = {
+        isLoading: false,
+        tokenSent
+      }
+    }
+
+    if (responseState !== '') {
+      this.setState(responseState)
     }
   }
   
-  onSubmit = (e) => {
-    e.preventDefault();
-    let arry = Array.from(e.target.children[0].children)
+  onSubmit = (event) => {
+    event.preventDefault();
+    let arry = Array.from(event.target.children[0].children)
     const user = arry.map((i) => {
       return i.children[1].value;
     });
+
+    this.setState({
+      isLoading: true
+    })
 
     const newUser = {
       firstName: user[0],
@@ -54,20 +83,25 @@ class RegisterForm extends Component {
   }
 
   render() {
+    const { isLoading, inputState, tokenSent } = this.state;
     return (
-      <main className="showcase-body" data-test="showcase-body">
-        <div className="showcase-body-left">
-          <h1 className="showcase-title">
-            Sign Up / Register
-          </h1>
-        </div>
-        <div className="showcase-body-right">
-          <form onSubmit={this.onSubmit} className="form form-case">
-            <InputField inputs={this.state.inputState} handleChange={this.handleChange}/>
-            <Button />
-          </form>
-        </div>
-      </main>
+      <div>
+        <Notify data={tokenSent} style='notify-success' />
+        {isLoading ? <Loading /> : <span />}
+        <main className="showcase-body" data-test="showcase-body">
+          <div className="showcase-body-left">
+            <h1 className="showcase-title">
+              Sign Up / Register
+            </h1>
+          </div>
+          <div className="showcase-body-right">
+            <form onSubmit={this.onSubmit} className="form form-case">
+              <InputField inputs={inputState} handleChange={this.handleChange}/>
+              <Button value='Register' />
+            </form>
+          </div>
+        </main>
+      </div>
     )
   }
 }
@@ -75,7 +109,7 @@ class RegisterForm extends Component {
 RegisterForm.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
