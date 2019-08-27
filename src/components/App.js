@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import './App.css';
 
-import Landing from './templates/landing.jsx';
+import Template from './templates/index.jsx';
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <Landing />
+        <Template />
       </div>
     )
   }
