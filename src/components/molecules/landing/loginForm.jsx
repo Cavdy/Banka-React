@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import InputField from '../../atoms/inputFields/inputField.jsx';
-import Button from '../../atoms/buttons/index.jsx';
+import InputField from '../../atoms/inputFields/inputField';
+import Button from '../../atoms/buttons';
 import { loginUser, validateToken } from '../../../actions/authActions';
-import Loading from '../loading/index.jsx'
-import Notify from '../../atoms/notification/index.jsx';
+import Loading from '../loading'
+import Notify from '../../atoms/notification';
 
 class LoginForm extends Component {
   constructor() {
