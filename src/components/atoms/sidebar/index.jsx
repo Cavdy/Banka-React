@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function sidebar() {
+export default function Sidebar({ sidebar }) {
   return (
-    <div className="sidebar">
+    <div className={!sidebar ? 'sidebar' : 'sidebar sidebar-hide'}>
       <div className="sidebar-header">
         <h1 className="logo">Banka</h1>
       </div>
@@ -39,4 +40,8 @@ export default function sidebar() {
       </div>
     </div>
   )
+}
+
+Sidebar.propTypes = {
+  sidebar: PropTypes.bool.isRequired
 }

@@ -429,7 +429,7 @@ body,
   height: var(--ten-pexels);
   margin: .5rem 0;
   padding: .5rem;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   border-radius: 5px;
@@ -440,13 +440,13 @@ body,
 }
 
 .alert-success {
-  display: none;
+  display: flex;
   background-color: var(--color-green);
   color: var(--color-green-2);
 }
 
 .alert-danger {
-  display: none;
+  display: flex;
   background-color: var(--color-red);
   color: var(--color-red-2);
 }
