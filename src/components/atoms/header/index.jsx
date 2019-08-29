@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { sprite } from '../../../svg';
@@ -27,6 +28,13 @@ export default class Header extends React.Component {
       userDropdown: !userDropdown,
       notification: false
     })
+  }
+
+  logout = () => {
+    const date = new Date();
+    const lastLogin = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    sessionStorage.clear();
+    sessionStorage.setItem('lastLogin', lastLogin);
   }
 
   render() {
@@ -87,10 +95,10 @@ export default class Header extends React.Component {
                     <use xlinkHref={`${sprite}#icon-help-with-circle`} />
                   </svg>Help</a>
                 </li>
-                <li className="item"><a href="#" className="link" id="logout">
+                <li className="item"><Link to="/" className="link" onClick={this.logout} id="logout">
                   <svg className="user-nav-link-icon">
                     <use xlinkHref={`${sprite}#icon-log-out`} />
-                  </svg>Logout</a>
+                  </svg>Logout</Link>
                 </li>
               </ul>
             </div>

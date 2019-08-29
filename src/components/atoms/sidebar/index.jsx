@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function Sidebar({ sidebar }) {
@@ -9,28 +10,28 @@ export default function Sidebar({ sidebar }) {
       </div>
       <div className="sidebar-menu">
         <ul className="sidebar-list">
-          <li className="sidebar-item user sidebar-item-active">
-            <a href="./dashboard.html" className="sidebar-link">Dashboard</a>
+          <li className="sidebar-item sidebar-item-active">
+            <Link to="/dashboard" className="sidebar-link">Dashboard</Link>
           </li>
-          <li className="sidebar-item user">
-            <a href="./createaccount.html" className="sidebar-link">Create an account</a>
+          <li className="sidebar-item">
+            <Link to="/createaccount" className="sidebar-link">Create an account</Link>
           </li>
-          <li className="sidebar-item staff admin">
+          <li className="sidebar-item">
             <a href="./accounts.html" className="sidebar-link">Credit / Debit</a>
           </li>
-          <li className="sidebar-item staff admin">
+          <li className="sidebar-item">
             <a href="./viewaccounts.html" className="sidebar-link">All Accounts</a>
           </li>
-          <li className="sidebar-item user">
+          <li className="sidebar-item">
             <a href="./transactions.html" className="sidebar-link">Transactions</a>
           </li>
-          <li className="sidebar-item staff admin">
+          <li className="sidebar-item">
             <a href="./users.html" className="sidebar-link">Users</a>
           </li>
           <li className="sidebar-item admin">
             <a href="staffs.html" className="sidebar-link">Staff</a>
           </li>
-          <li className="sidebar-item staff admin">
+          <li className="sidebar-item">
             <a href="./activate.html" className="sidebar-link">Activate / Deactivate</a>
           </li>
         </ul>

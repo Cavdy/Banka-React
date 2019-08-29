@@ -3,10 +3,12 @@ import authReducer from './auth/authReducer';
 import errorReducer from './error/errorReducer';
 import accountReducer from './accounts/accountReducer';
 import userAccountReducer from './accounts/userAccountReducer';
+import createAccountReducer from './accounts/createAccountReducer';
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   accounts: accountReducer,
-  userAccount: userAccountReducer
+  userAccount: userAccountReducer,
+  createAccount: createAccountReducer
 })

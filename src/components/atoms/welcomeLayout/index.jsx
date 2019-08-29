@@ -12,7 +12,7 @@ class index extends React.Component {
         <img className="welcome-user-photo" src="https://res.cloudinary.com/cavdy/image/upload/v1566925735/js2_pfak7d.png" alt="" />
         <div className="welcome-user-details">
           <p className="welcome-username">Welcome back, <span id="firstname">{sessionStorage.firstName}</span></p>
-          <p className="last-login">your last login was <span id="lastLogin">{sessionStorage.lastName}</span></p>
+          <p className="last-login">your last login was <span id="lastLogin">{sessionStorage.lastLogin}</span></p>
         </div>
         <div className="welcome-user-balance">
           <p className="total-balance">Total Balance</p>

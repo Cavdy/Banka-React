@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { creative } from '../../../svg';
 
@@ -11,7 +11,7 @@ const index = () => {
           Welcome to Banka
         </h1>
         <span className="showcase-description">Your safety is our concern</span>
-        {/* <Link to="/login" className="showcase-btn">Go to Dashboard</Link> */}
+        <Link to="/login" className="showcase-btn">Go to Dashboard</Link>
       </div>
       <div className="showcase-body-right">
         <img src={creative} alt="" className="showcase-body-right-img" />
