@@ -1,20 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AccountDropDown from '../accountDropDown';
+import AccountDropDown from '../../atoms/accountDropDown';
+import Loading from '../../atoms/loading';
 
 import { getAccount } from '../../../actions/userAccountActions';
 
 class dashboard extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { account } = nextProps;
+
+    if (Object.keys(account).length !== 0) {
+      const { isLoading } = account;
+      return ({ isLoading })
+    }
+
+    return null;
   }
 
   render() {
     const { account, errors: { errors: error } } = this.props;
+    const { isLoading } = this.state;
+
     return (
       <main className="main-body">
-        <AccountDropDown accountList={this.props.accounts} />
+        {isLoading ? <Loading /> : <span />}
+        <AccountDropDown />
         {Object.keys(account).length !== 0 ? (
           <div className="dashboard-wrapper">
           <div className="user-details">
@@ -75,7 +93,6 @@ class dashboard extends React.Component {
 
 dashboard.propTypes = {
   getAccount: PropTypes.func.isRequired,
-  accounts: PropTypes.array,
   account: PropTypes.object,
   errors: PropTypes.object
 }

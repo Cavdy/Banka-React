@@ -2,10 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createAccount } from '../../../actions/userAccountActions';
+import Loading from '../../atoms/loading';
 
 class CreateAccount extends React.Component {
+  state = {
+    isLoading: false
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { account } = nextProps;
+
+    if (Object.keys(account).length !== 0) {
+      const { isLoading } = account;
+      return ({ isLoading })
+    }
+    return null;
+  }
+
   selectAccountType = (event) => {
     event.preventDefault();
+
+    this.setState({ isLoading: true })
+
     const selectedValue = Array.from(event.target.previousSibling.children);
     
     const accountType = {
@@ -16,6 +34,7 @@ class CreateAccount extends React.Component {
 
   render() {
     const { account } = this.props;
+    const { isLoading } = this.state;
     let successMsg = '';
 
     if (Object.keys(account).length !== 0)
@@ -23,6 +42,7 @@ class CreateAccount extends React.Component {
 
     return (
       <main className="showcase-body">
+        {isLoading ? <Loading /> : <span />}
         <div className="showcase-body-left">
           <h1 className="showcase-title">
             Create an account

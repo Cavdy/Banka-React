@@ -2,8 +2,9 @@ import axios from '../config/axoisInstance';
 import {
   USER_ACCOUNTS,
   USER_SPECIFIC_ACCOUNT,
-  GET_ERRORS,
-  CREATE_ACCOUNT
+  GET_USER_ERROR,
+  CREATE_ACCOUNT,
+  USER_TRANSACTIONS,
 } from './types';
 
 export const getUserAccounts = (email) => (dispatch) => {
@@ -15,7 +16,7 @@ export const getUserAccounts = (email) => (dispatch) => {
       })
     })
     .catch(err => dispatch({
-      type: GET_ERRORS,
+      type: GET_USER_ERROR,
       payload: err.response.data
     }));
 };
@@ -26,7 +27,7 @@ export const getAccount = (account) => (dispatch) => {
       type: USER_SPECIFIC_ACCOUNT,
       payload: res.data.data
     }))
-    .catch(err => console.log(err));
+    .catch(err => err);
 };
 
 export const createAccount = (accountType) => (dispatch) => {
@@ -35,5 +36,17 @@ export const createAccount = (accountType) => (dispatch) => {
       type: CREATE_ACCOUNT,
       payload: res.data.data
     }))
-    .catch(err => console.log(err));
+    .catch(err => err);
+};
+
+export const getAccountTransaction = (account) => (dispatch) => {
+  axios.get(`/accounts/${account}/transactions`, { headers: { Authorization: `Bearer ${sessionStorage.token}` } })
+    .then(res => dispatch({
+      type: USER_TRANSACTIONS,
+      payload: res.data.data
+    }))
+    .catch(err => dispatch({
+      type: USER_TRANSACTIONS,
+      payload: err.response.data
+    }));
 };

@@ -1,46 +1,69 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Loading from '../loading';
 
-import { getAccount } from '../../../actions/userAccountActions';
+import {
+  getUserAccounts,
+  getAccount,
+  getAccountTransaction
+} from '../../../actions/userAccountActions';
 
 class AccountDropDown extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isLoading: false
   }
  
   componentDidMount() {
-    setTimeout(() => {
-      const getSpecificAccount = document.querySelector('.accounts-select');
-      this.props.getAccount(getSpecificAccount.value)
-    }, 2000)
+    const userEmail = sessionStorage.email;
+    this.props.getUserAccounts(userEmail);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { accounts } = nextProps;
+
+    if (Object.keys(accounts).length !== 0) {
+      setTimeout(() => {
+        const getSpecificAccount = document.querySelector('.accounts-select');
+        nextProps.getAccount(getSpecificAccount.value)
+        nextProps.getAccountTransaction(getSpecificAccount.value)
+      }, 1000)
+
+      const { isLoading } = accounts;
+      return ({ isLoading });
+    }
+    return null;
   }
 
   loadAccount = (event) => {
     event.preventDefault();
+
+    this.setState({ isLoading: true })
+    
     const { errors: { errors: error } } = this.props;
     if (error === '') {
       const getSpecificAccount = Array.from(event.target.previousSibling.children);
       this.props.getAccount(getSpecificAccount[0].value)
+      this.props.getAccountTransaction(getSpecificAccount[0].value)
     }
   }
 
   render() {
     let options;
-    let count = 0;
-    const { accountList } = this.props;
+    const { accounts } = this.props;
+    const { isLoading } = this.state;
   
-    if (accountList.length !== 0) {
-      options = accountList.map((account) => {
-        count += 1;
+    if (Object.keys(accounts).length !== 0) {
+      options = accounts.userAccounts.map((account) => {
         return (
-          <option key={count} value={account.accountnumber}>{account.accountnumber}</option>
+          <option key={account.id} value={account.accountnumber}>{account.accountnumber}</option>
         )
       })
     }
 
     return (
       <div className="accounts">
+        {isLoading ? <Loading /> : <span />}
         <div className="card">
           <form action="" className="accounts-form">
             <div className="form-group">
@@ -58,16 +81,23 @@ class AccountDropDown extends React.Component {
 }
 
 AccountDropDown.propTypes = {
+  getUserAccounts: PropTypes.func.isRequired,
+  getAccountTransaction: PropTypes.func.isRequired,
   getAccount: PropTypes.func.isRequired,
-  accountList: PropTypes.array,
-  accounts: PropTypes.array,
-  account: PropTypes.object,
+  accounts: PropTypes.object,
   errors: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
-  account: state.userAccount,
+  accounts: state.accounts,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { getAccount })(AccountDropDown)
+export default connect(
+  mapStateToProps,
+  {
+    getUserAccounts,
+    getAccount,
+    getAccountTransaction
+  }
+)(AccountDropDown)

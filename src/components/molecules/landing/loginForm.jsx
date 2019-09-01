@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import InputField from '../../atoms/inputFields/inputField';
 import Button from '../../atoms/buttons';
 import { loginUser, validateToken } from '../../../actions/authActions';
-import Loading from '../loading'
+import Loading from '../../atoms/loading';
 import Notify from '../../atoms/notification';
 
 class LoginForm extends Component {
@@ -109,7 +109,7 @@ class LoginForm extends Component {
     }
 
     if (isAuthenticated) {
-      return <Redirect to='/dashboard' />
+      return <Redirect to='/dashboard/account' />
     }
   
     return (
