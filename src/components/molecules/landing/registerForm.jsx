@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import InputField from '../../atoms/inputFields/inputField.jsx';
-import Button from '../../atoms/buttons/index.jsx';
+import InputField from '../../atoms/inputFields/inputField';
+import Button from '../../atoms/buttons';
 import { registerUser } from '../../../actions/authActions';
-import Loading from '../loading/index.jsx';
-import Notify from '../../atoms/notification/index.jsx';
+import Loading from '../../atoms/loading';
+import Notify from '../../atoms/notification';
 
 class RegisterForm extends Component {
   constructor() {

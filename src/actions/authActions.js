@@ -1,6 +1,11 @@
 import axios from '../config/axoisInstance';
 import {
-  GET_ERRORS, SEND_VERIFY_TOKEN, CURRENT_USER, NOT_VALIDATED, VALIDATED
+  GET_ERRORS,
+  SEND_VERIFY_TOKEN,
+  CURRENT_USER,
+  LOGOUT_USER,
+  NOT_VALIDATED,
+  VALIDATED
 } from './types';
 
 export const registerUser = (userData) => (dispatch) => {
@@ -40,6 +45,14 @@ export const loginUser = (userData) => (dispatch) => {
         })
       }
     });
+};
+
+export const logoutUser = () => (dispatch) => {
+  console.log('I got here');
+  dispatch({
+    type: LOGOUT_USER,
+    payload: {}
+  })
 };
 
 export const validateToken = (secretToken) => (dispatch) => {

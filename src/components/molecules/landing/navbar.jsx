@@ -11,7 +11,7 @@ class navbar extends React.Component {
         <div className="showcase-logo"><Link to="/">Banka</Link></div>
         {isAuthenticated ? (<ul className="showcase-list">
           <li className="showcase-item">
-            <Link to="/dashboard" className="showcase-link">Dashboard</Link>
+            <Link to="/dashboard/account" className="showcase-link">Dashboard</Link>
           </li>
         </ul>) : (<ul className="showcase-list">
           <li className="showcase-item">

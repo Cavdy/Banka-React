@@ -1,4 +1,4 @@
-import { SEND_VERIFY_TOKEN, CURRENT_USER, VALIDATED } from '../../actions/types';
+import { SEND_VERIFY_TOKEN, CURRENT_USER, VALIDATED, LOGOUT_USER } from '../../actions/types';
 
 const initState = {
   isAuthenticated: false,
@@ -24,6 +24,8 @@ export default function (state = initState, action) {
           isLoading: false,
           user: action.payload
         };
+    case LOGOUT_USER:
+      return state;
     default:
       return state;
   }
